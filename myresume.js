@@ -20,15 +20,6 @@ var shakti_cup;
 var shakti2;
 var football;
 var text;
-var spoj_url="http://www.spoj.com/users/prateek27/";
-var hackerearth_url="https://www.hackerearth.com/users/prateekrishu1/";
-var codechef_url="https://www.codechef.com/users/prateek27";
-var github_url="https://github.com/prateek27";
-var facebook_url="https://www.facebook.com/prateek.narang.756";
-var linkedin_url="https://in.linkedin.com/pub/prateek-narang/9a/8b3/10";
-var resume_url="http://www.prateeknarang.com/resume.pdf";
-var website_url="http://www.prateeknarang.com";
-var gmail_url="";
 var inst_text;
 var bug;
 var bug_tween;
@@ -52,7 +43,6 @@ function preload(){
 	 
 	text = game.add.text(w/2, h/2, "Loading...",{ font:"80px Roboto",fill: '#fbeec1' });
 	text.anchor.setTo(0.5,0.5);
-	game.load.image('download','assets/download2.png');
 	game.load.image('publication','assets/publication.png');
 	game.load.image('ground','assets/grassMid.png');
 	game.load.image('back','assets/back64.png');
@@ -69,7 +59,7 @@ function preload(){
 	game.load.image('hometown','assets/treasure.png');
 	game.load.image('hill','assets/mountain.png');
 	game.load.image('treeS','assets/tree-dark-d.png');
-	game.load.atlasJSONHash('prateek','assets/p2_walk.png','assets/p2_walk.json');
+	game.load.atlasJSONHash('hero','assets/p2_walk.png','assets/p2_walk.json');
 	game.load.atlasJSONHash('waterAtlas','assets/water_corrected.png','assets/water_running.json');
 	game.load.atlasJSONHash('waterAtlas2','assets/water_orange.png','assets/water_running.json');
 	game.load.image('dtu','assets/dtu.png');
@@ -137,6 +127,8 @@ function preload(){
 	game.load.image('cloud2', 'assets/cloud2.png');
 	game.load.image('cloud3', 'assets/cloud3.png');
 	game.load.image('blogLogo','assets/icon_small.png');
+	game.load.image('cisco', 'assets/cisco.png');
+	game.load.image('placard', 'assets/placard.png');
 	game.load.image('bug','assets/bug.png');
 	game.load.image('flag','assets/flag.png');
 	game.load.image('squarebrick','assets/brick_small.png');
@@ -261,9 +253,9 @@ function create(){
 	//var style_lang = { font:"30px monospace" ,fill:"#fff"};
 
 	javatext = game.add.text(5050,h-320-50,'USAA \n $3M TCV',style_roboto);
-	pythontext=	game.add.text(5250,h-430-60,'International Baccalaureate Organization\n (Renewal), $1.2M TCV',style_white2);
-	jstext = game.add.text(5430,h-450-50,'Federal Reserve System (Cross Sell/Upsell),\n $384K TCV',style_white2);
-	ctext = game.add.text(5660,h-460-50,'HPE, VAH, NBB,\n $347K TCV',style_white2);
+	pythontext=	game.add.text(5170,h-530,'International \n Baccalaureate \n Organization\n (Renewal), $1.2M TCV',style_roboto);
+	jstext = game.add.text(5430,h-550,'Federal \n Reserve System \n (Cross Sell/Upsell),\n $384K TCV',style_roboto);
+	ctext = game.add.text(5660,h-460-50,'HPE, VAH, NBB,\n $347K TCV',style_roboto);
 
 	
 	javatext.alpha = 0.2;
@@ -278,11 +270,11 @@ function create(){
 	*/
 	//Add Coin
 	var mustard_style = { font: "80px Roboto", fill: "#fbeec1", align: "center" };
-	codetext = game.add.text(6550,h-550,'C    D E =>',mustard_style);
-	var moving_coin = game.add.sprite(6610,h-550,'coin_moving');
-	moving_coin.scale.setTo(2,2);
-	moving_coin.animations.add('run');
-	moving_coin.animations.play('run',20,true);
+	codetext = game.add.text(6500,h-550,'CLIENTS =>',mustard_style);
+	// var moving_coin = game.add.sprite(6610,h-550,'coin_moving');
+	// moving_coin.scale.setTo(2,2);
+	// moving_coin.animations.add('run');
+	// moving_coin.animations.play('run',20,true);
 	
 	/* The newer one */
 	game.add.sprite(6650,h-200,'pipe');
@@ -358,6 +350,17 @@ function create(){
 	// createBubbles();
 	//game.add.tileSprite(8700,h+600-136,133*6,136,'photoshop');
 
+	game.add.sprite(12300, h-400, 'placard').scale.setTo(0.7,0.7);
+	game.add.text(12370,h-350,'Cvent Global \n Companywide \n February 16, 2021',style_roboto);
+	game.add.sprite(13200, h-400, 'placard').scale.setTo(0.7,0.7);
+	game.add.text(13240,h-350,'Companywide Awards\n Ceremony: APAC/IMEA\n February 17, 2021',style_roboto);
+	game.add.sprite(14050, h-400, 'placard').scale.setTo(0.7,0.7);
+	game.add.text(14110,h-350,'EC Divisional \n All-Hands Welcome \nMarch 2, 2021',style_roboto);
+	game.add.sprite(14800, h-400, 'placard').scale.setTo(0.7,0.7);
+	game.add.text(14880,h-350,'EC Divisional \nAll-Hands Part 1 \nMarch 2, 2021',style_roboto);
+	// game.add.sprite(13716, h-500, 'placard').scale.setTo(0.7,0.7);
+
+
 	var brick2 = game.add.sprite(12750-70,h-100-36,'brick');
 	brick2.scale.setTo(0.5,0.5);
 	game.add.sprite(12750-70,h-100,'brick').scale.setTo(0.5,0.5);
@@ -409,28 +412,28 @@ function create(){
 	game.add.text(4840,h-260,"Sales");
 
 	game.add.sprite(9600,h-440,'level');
-	game.add.text(9670,h-340,"Level 3");
-	game.add.text(9740,h-260,"Experience",{font:"25px Arial Black"});
+	game.add.text(9670,h-340,"Backbone");
+	game.add.text(9740,h-260,"Sponsors",{font:"25px Arial Black"});
 
 
 	game.add.sprite(11800,h-440,'level');
-	game.add.text(11870,h-340,"Level 4");
-	game.add.text(11940,h-260,"Projects",{font:"25px Arial Black"});
+	game.add.text(11870,h-340,"Upcoming...");
+	game.add.text(11940,h-260,"Sessions",{font:"25px Arial Black"});
 
 
 	game.add.sprite(base5+100,h-440,'level');
-	game.add.text(base5+170,h-340,"Level 5");
-	game.add.text(base5+240,h-260,"Achievements",{font:"25px Arial Black"});
+	game.add.text(base5+170,h-340,"Recognition");
+	game.add.text(base5+240,h-260,"Awards",{font:"25px Arial Black"});
 
 
-	game.add.sprite(base6+200,h-440,'level');
-	game.add.text(base6+270,h-340,"Level 6");
-	game.add.text(base6+335,h-260,"Other Highlights",{font:"20px Arial Black"});
+	// game.add.sprite(base6+200,h-440,'level');
+	// game.add.text(base6+270,h-340,"Level 6");
+	// game.add.text(base6+335,h-260,"Other Highlights",{font:"20px Arial Black"});
 
 
-	game.add.sprite(base7,h-440,'level');
-	game.add.text(base7+70,h-340,"Level 7");
-	game.add.text(base7+135,h-260,"Online Profiles",{font:"20px Arial Black"});
+	// game.add.sprite(base7,h-440,'level');
+	// game.add.text(base7+70,h-340,"Level 7");
+	// game.add.text(base7+135,h-260,"Online Profiles",{font:"20px Arial Black"});
 
 	//-------------------Levels Finish
 
@@ -456,185 +459,58 @@ function create(){
 	game.add.sprite(11300,h-485,'frog').scale.setTo(1.3,1.3);
 
 	//Add logos
-	game.add.sprite(10010,h-210,'campk12Logo').scale.setTo(0.75,0.75);
-	game.add.sprite(10310,h-230,'instaLogo');
-	game.add.sprite(10620,h-235,'hackerearthLogo').scale.setTo(0.48,0.48);
-	game.add.sprite(10970,h-280,'sandiskLogo');
-	game.add.sprite(11320,h-300,'cbLogo').scale.setTo(0.6,0.6);
-
-	//Add company texts.
-	// var style_ex = {font:"16px Arial",fill:orange,align:"center"};
-	// var style_exS = {font:"12px Arial",fill:orange,align:"center"};
-	// game.add.text(10080,h-210,"Camp K-12, Delhi \n Sept-Oct 2013 \n Design Instructor",style_exS);
-	// game.add.text(10390,h-220,"InstaLabs, Gurgaon \n June-July 2014 \n Android Developer",style_exS);
-	// game.add.text(10700,h-230,"HackerEarth\n March-April 2015 \n Problem Setter",style_ex); 
-	// game.add.text(11000,h-250,"Bangalore \n June-July 2015 \n Firmware Developer\n Intern",style_ex);
-	// game.add.text(11420,h-290,"Coding Blocks,Delhi \n Aug'15-Nov'15 \n C++ Course Instructor",style_ex);
-
-	//game.add.tileSprite(15720,h-300,100,300'brick');
-
-	//game.add.sprite(15715,h-410,'best').scale.setTo(0.8,0.8);
-	//Positon style
-	var style_position = { font:"24px monospace",fill:"#fbeec1",align:"center"};
-	cup1 = game.add.sprite(base5+820+200,-280,'cup');
-	cup1.scale.setTo(1.6,1.6);
-	game.add.sprite(base5+1190,h-330,'google');
-	game.add.text(base5+1180,h-250,"Hackathon \n 3rd Runner up\n Developed a Game\n in DART",style_position);
+	game.add.sprite(10030,h-210,'campk12Logo').scale.setTo(0.75,0.75);
+	game.add.sprite(10320,h-240,'instaLogo').scale.setTo(0.6,0.6);
+	game.add.sprite(10620,h-235,'hackerearthLogo')
+	game.add.sprite(10930,h-350,'sandiskLogo').scale.setTo(0.8,0.8);
+	game.add.sprite(11360,h-300,'cisco').scale.setTo(0.05,0.05);
 
 	
-	cup2=game.add.sprite(base5+1400,-340,'cup');
-	cup2.scale.setTo(1.4,1.4);
-	game.add.sprite(base5+1630,h-390,'csi');
-	game.add.text(base5+1580,h-250,"2nd in Spython \nGame Development\n Challenge",style_position);
+	cup1 = game.add.sprite(base5+820+200,-300,'cup');
+	cup1.scale.setTo(0.95,0.95);
+	game.add.text(base5+1110,h-250,"Cventer Of The Year",style_roboto);
+
+	
+	cup2=game.add.sprite(base5+1400,-380,'cup');
+	cup2.scale.setTo(1.2,1.2);
+	game.add.text(base5+1530,h-300,"Intrapreneur Of The Year",style_roboto);
 
 	
 
-	cup3=game.add.sprite(base5+1820,-410,'cup');
-	cup3.scale.setTo(1.2,1.2);
-	game.add.sprite(base5+2060,h-410,'codelhi');
-	game.add.text(base5+2080+50,h-310,"Hackathon",style_position);
+	cup3=game.add.sprite(base5+1820,-370,'cup');
+	cup3.scale.setTo(1.5,1.5);
+	game.add.text(base5+2000,h-330,"Emerging Leader Of The Year",style_roboto);
 
-	game.add.text(base5+2060,h-305+50,"1st in ",style_position);
-	game.add.sprite(base5+2170,h-310+50,'shephertz');
-	game.add.text(base5+2060,h-205+30,"1st in ",style_position);
-	game.add.sprite(base5+2150,h-210+30,'gaana').scale.setTo(0.15,0.15);
-
-
-	//Add grari
-	grari = game.add.sprite(base5+2600,h-350,'grari');
-	grari2 = game.add.sprite(base5+2520+260,h-420,'grari');
-	grari.animations.add('run');
-	grari.animations.play('run',2,true);
-	grari2.scale.setTo(0.75,0.75);
-	grari2.animations.add('run');
-	grari2.animations.play('run',2,true);
-
-	//Add digital India
-	digital_india = game.add.sprite(base5+2700,h-260,'digital_india');
-	digital_india.animations.add('run');
-	digital_india.animations.play('run',5,true);
-	game.add.text(base5+2650,h-420,"Winning Team member\n Code For India \n Google Hackathon for",{font:"30px Arial",fill:"#fff",align:"center"});
 	
-	cup4=game.add.sprite(base5+2420,-410,'cup');
+	cup4=game.add.sprite(base5+2420,-430,'cup');
+	cup4.scale.setTo(1.6,1.6);
+	game.add.text(base5+2640,h-345,"Most Valuable Player",style_roboto);
 
-	cup5=game.add.sprite(base5+3000,h-400,'cup');
-	cup5.scale.setTo(0.8,0.8);
+	cup5=game.add.sprite(base5+3000,h-460,'cup');
+	cup5.scale.setTo(1.8,1.8);
+	game.add.text(base5+3250,h-380,"New Comer Of The Year",style_roboto);
 
 
 	
 	game.add.sprite(base6+1200-30,h-550,'tree1');
 	game.add.sprite(base6+1250+30,h-400,'treeS');
 	
-	//Add Contact Buttons
-	// game.add.sprite(base7+600,h-400,'ladder');
-	
-	// var cloud_blog =game.add.sprite(base7+550,h-700+20,'sun');	
-	// cloud_blog.scale.setTo(1.3,1.3);
-	
-	// game.add.button(base7+620,h-650+20,'blogLogo',openWebsite,this);
-	// game.add.text(base7+650,h-550+20,"Blog",{font:"40px Arial" ,fill:"#fff"});
-	// cloud_moving1 = game.add.sprite(base7+510,h-650,'cloud');
-	// cloud_moving2 = game.add.sprite(base7+510-60,h-650,'cloud');
-
-	// cloud_moving2.scale.setTo(1.3,1.3);
-	// cloud_moving1.scale.setTo(1.2,1.2);
-
-	//game.add.text(20100,h-550,"www.prateeknarang.com",{font:"16px Arial",fill:"#ff0000"});
-
-	// game.add.sprite(base7+450,h-550,'cloud').scale.setTo(1.2,1.2);
-	// button_github = game.add.button(base7+500,h-490,'github',openGithub, this);
-	// button_github.scale.setTo(0.20,0.20);
-	
-	// game.add.sprite(base7+800,h-550,'cloud').alpha=0.8;
-	// button_fb = game.add.button(base7+860,h-520,'facebook',openFacebook,this);
-	
-	// var hackerearth_cloud=game.add.sprite(base7+650+30,h-350+15,'cloud');
-	// hackerearth_cloud.scale.setTo(1.1,1.1);
-
-	// button_hackerearth = game.add.button(base7+700+30,h-310+15,'hackerearthLogo',openHackerearth, this);
-	// button_hackerearth.scale.setTo(0.5,0.5);
-	
-	// var gmail_cloud=game.add.sprite(base7+670,h-440,'cloud');
-	// gmail_cloud.scale.setTo(1.1,1.1);
-	// gmail_cloud.alpha =0.95;
-	// button_gmail = game.add.button(base7+720,h-400,'gmail',openGmail, this);
-	// button_gmail.scale.setTo(0.8,0.8)
-	
-	
-
-	
-	// var cloud_codechef=game.add.sprite(base7+400,h-400,'cloud');
-	// cloud_codechef.scale.setTo(1.4,1.4);
-	// cloud_codechef.alpha=0.8;
-	// button_codechef = game.add.button(base7+430,h-330,'codechef',openCodechef, this).scale.setTo(0.6,0.6);
-	
-	// //game.add.sprite(20150+200,h-350,'spoj').scale.setTo(0.25,0.25);
-	// game.add.sprite(base7+850,h-430,'cloud').scale.setTo(1.3,1.3);
-	// button_spoj = game.add.button(base7+890,h-350,'spoj',openSpoj, this);
-
-
-	// var linkedin_cloud = game.add.sprite(base7+1050-100,h-530,'cloud')
-	// linkedin_cloud.scale.setTo(1.2,1.2);
-	// linkedin_cloud.alpha =0.9;
-	// button_linkedin = game.add.button(base7+990,h-450,'linkedin',openLinkedIn, this);
-	// button_linkedin.scale.setTo(0.8,0.8);
-	
-	// game.add.text(base7+720,h-120,"Click /Tap the Clouds to open Profiles and Publications.",style_white);
-	
-	// game.add.button(base7+1260,h-450+20,'publication',openPublication,this);
-
-	//scale.setTo(0.15,0.15);
-
-	/*
-	button_codechef = game.add.button(20600,h-600,'codechef',openCodechef, this);
-	
-	button_linkedin = game.add.button(20400,h-400,'linkedin',openLinkedIn, this);
-	button_spoj = game.add.button(20200,h-600,'spoj',openSpoj, this);
-	button_hackerearth = game.add.button(20000,h-600,'hackerearthLogo',openHackerearth, this);
-	*/
-	//Add hometown
 	var hometown = game.add.sprite(1600,h-200,'hometown');
 	hometown.scale.setTo(0.2,0.2)
 
-	//Add fullstack
-	// game.add.sprite(5900,h-360,'developer');
-
-	//Add College building
-	// game.add.sprite(4300,h-480,'building').scale.setTo(0.75,0.75);
-	// aieee_cup=game.add.sprite(3500,-500,'cup');
-	// game.add.text(4300,h-120,"  Scored 80% marks in university.",style_roboto);
-	
-	//Add bubble
-	
-	// bubble = game.add.sprite(9100,h+450,'psbubble');
-	// game.add.text(8900,h+500,"Designing Skills - Photoshop,CorelDraw",style_roboto);
-	
-	// bubble.scale.setTo(0.5,0.5);
-	// bubble.alpha =0.8;
-
 	inst_text = game.add.text(290,h-50,"Use  Arrow Keys  OR << Screen Buttons >> ",{font:"30px Arial",fill:"#fbeec1"});
 	//Add hero 
-	hero = game.add.sprite(100,-100,'prateek');
+	hero = game.add.sprite(100,-100,'hero');
 	hero.animations.add('run');
-	// hero.scale.setTo(1.2,1.2);
 
-
-
-	//Add School
 	var school = game.add.sprite(1900,h-250-200,'school');
 	school.scale.setTo(0.8, 0.8);
 
 	var fly = game.add.sprite(1900,h-500,'fly');
 	fly.scale.setTo(0.5, 0.5);
-	//school.scale.setTo(1.2,1.2);
 
-	// var clg = game.add.sprite(4000,h-490,'dtu');
-	// clg.scale.setTo(1.2,1.2);
-
-	
 //	hero tween
 	var entryTween = game.add.tween(hero);
- 	// tween = game.add.tween(sprites.cursor).to( { x:100,y: 500 }, 2000, Phaser.Easing.Bounce.Out, true);
 	entryTween.to({x:starting_point,y:h-100-hero.height},2000,Phaser.Easing.Bounce.Out, true);
 	entryTween.start();
 	
@@ -650,27 +526,18 @@ function create(){
 	bug = game.add.sprite(5900,h-150,'bug');
 	game.physics.arcade.enable(bug);
 
-//	hero.body.gravity.y=10000;
-	//hero.fixedToCamera = true;
-	//hero.body.angularVelocity = 10;
 	game.camera.follow(hero);
 	game.camera.follow(hero,Phaser.Camera.FOLLOW_PLATFORMER);
-	//Create Water Bubbles
 	back_btn = game.add.button(10,h-94,'back');
 	fwd_btn = game.add.button(w-10,h-94,'back');
 	fwd_btn.scale.x *= -1;
 	fwd_btn.fixedToCamera = true;
 	back_btn.fixedToCamera = true;
 	back_btn.alpha = 1;
-	
-	// download_btn = game.add.button(w-150,5,'download',openResume,this);
-	// download_btn.fixedToCamera = true;
-	// game.add.text(w-120,100,"Download PDF",{font:"10px Roboto",fill:"#fbeec1"}).fixedToCamera=true;
+
 	night_tween = game.add.tween(night);
 	night_tween.to({ alpha:0}, 10000)
-		//, Phaser.Easing.Quadratic.InOut, true, 0, 5000, true);
-	//back_btn.onTap.add(moveBack,this);
-	//Visible only for mobile screens
+
 	if(w<=481){
 		back_btn.alpha = 1;
 	}
@@ -712,10 +579,10 @@ function collisionHandler(bullet,tile){
 
     if(explosion_count==1){
 		var css = game.add.sprite(bv,h-400,'css');
-		css.scale.setTo(0.5,0.5);
+		css.scale.setTo(0.02,0.02);
 		css.anchor.setTo(0.5,0.5);
 		game.add.tween(css).to({y:h-550},300).start();
-		game.add.tween(css.scale).to({y:0.9,x:0.9},500).start();
+		game.add.tween(css.scale).to({y:0.1,x:0.1},500).start();
 		var coin = addMovingCoin(bv,h-400,2);
 		var t =game.add.tween(coin).to({x:hero.x+100,y:hero.y+50},500).start();
 		t.onComplete.add(function(){coin.alpha=0;});
@@ -726,7 +593,7 @@ function collisionHandler(bullet,tile){
 		html.scale.setTo(0.5,0.5);
 		html.anchor.setTo(0.5,0.5);
 		game.add.tween(html).to({y:h-550},300).start();
-		game.add.tween(html.scale).to({y:0.9,x:0.9},500).start();
+		game.add.tween(html.scale).to({y:0.95,x:0.95},500).start();
 	
 			var coin = addMovingCoin(bv+inc,h-400,2);
 		var t =game.add.tween(coin).to({x:hero.x+100,y:hero.y+50},500).start();
@@ -739,7 +606,7 @@ function collisionHandler(bullet,tile){
 	js.scale.setTo(0.5,0.5);
 	js.anchor.setTo(0.5,0.5);
 	game.add.tween(js).to({y:h-550},300).start();
-	game.add.tween(js.scale).to({y:0.9,x:0.9},800).start();
+	game.add.tween(js.scale).to({y:0.4,x:0.4},800).start();
 	
 		var coin = addMovingCoin(bv+2*inc,h-400,2);
 		var t =game.add.tween(coin).to({x:hero.x+100,y:hero.y+50},500).start();
@@ -753,7 +620,7 @@ function collisionHandler(bullet,tile){
 	py.scale.setTo(0.2,0.2);
 	py.anchor.setTo(0.5,0.5);
 	game.add.tween(py).to({y:h-550},300).start();
-	game.add.tween(py.scale).to({y:0.6,x:0.6},500).start();
+	game.add.tween(py.scale).to({y:0.8,x:0.8},500).start();
 
 		var coin = addMovingCoin(bv+3*inc,h-400,2);
 		var t =game.add.tween(coin).to({x:hero.x+100,y:hero.y+50},500).start();
@@ -762,19 +629,12 @@ function collisionHandler(bullet,tile){
 	
 	}
 	else if(explosion_count==5){
-	/*
-	var phaser= game.add.sprite(bv+3*inc,h-500,'phaser');
-	py.scale.setTo(0.2,0.2);
-	py.anchor.setTo(0.5,0.5);
-	game.add.tween(py).to({y:h-550},300).start();
-	game.add.tween(py.scale).to({y:0.6,x:0.6},500).start();
-	*/
 
 	var andro= game.add.sprite(bv+4*inc,h-500,'jtb');
 	andro.scale.setTo(0.2,0.2);
 	andro.anchor.setTo(0.5,0.5);
 	game.add.tween(andro).to({y:h-550},300).start();
-	game.add.tween(andro.scale).to({y:0.6,x:0.6},600).start();
+	game.add.tween(andro.scale).to({y:0.8,x:0.8},600).start();
 
 		var coin = addMovingCoin(bv+4*inc,h-400,2);
 		var t =game.add.tween(coin).to({x:hero.x+100,y:hero.y+50},500).start();
@@ -829,23 +689,6 @@ function moveBack(){
 	hero.x -= 80;
 	hero.animations.play('run',15,true);
 }
-// function createBubbles(){
-// 	for (var i = 0; i < 20; i++)
-//     {
-//         var sprite = game.add.sprite(game.rnd.realInRange(8700,9400), h+400, 'waterBubble');
-
-//         sprite.scale.set(game.rnd.realInRange(0.1, 0.3));
-//         sprite.alpha -=0.1;
-
-//         var speed = game.rnd.between(4000, 6000);
-
-//         game.add.tween(sprite).to({ y:h-game.rnd.realInRange(100,250),}, speed, Phaser.Easing.Sinusoidal.InOut, true, delay, 1000, false);
-
-//         delay += 300;
-//     }
-
-
-// }
 
 function mouseWheel(event) {
 		inst_text.setText("");
@@ -897,7 +740,6 @@ function backButtonPressed(){
 	{
 		if(direction =="right"){
 		direction= "left";
-		//hero.anchor.setTo(1,0);
 		hero.scale.setTo(-1,1);
 	}
 	return true;
@@ -944,54 +786,18 @@ function update(){
 		//console.log("This tween");
 	}
 
-	// if(hero.x<8700 && hero.y>h &&(backButtonPressed())){
-	// 	hero.x = 8700;
-	// 	console.log("Yeh valal");
-	// }
-	//Throw into ocean right
-	// if(direction =="left" &&hero.x >=9250&&hero.x<=9450&&backButtonPressed()){
-	// 	hero.y = h+300;
-	// 	hero.alpha = 0.8;
-	// 	birds.alpha =0;
-	// }
+
 	if(hero.x >base5){
 
 		night_tween.start();
 	}
-
-	// if(hero.x > 8750 && hero.x <8900 && hero.y > h &&direction!='right'){
-	// 	var t =game.add.tween(hero).to({x:8800,y:h-300},1000).start();
-	// 	t.onComplete.add(function(){ hero.alpha=1; birds.alpha=1;game.camera.y -=150;})
-	// 	//console.log("Nahin Yeh Vaala")
-	// }
-
-	// if(hero.x>=12500&&hero.x<=12650&&(forwardButtonPressed())){
-	// 	var t = game.add.tween(hero).to({x:12800,y:h-700},100);
-	// 	t.start();
-	// 	t.onComplete.add(function(){ game.add.tween(hero).to({x:13100,y:h-300},200).start()});
-	
-	// }
-
-	// if(hero.x >=13000&&hero.x<=13100&&(backButtonPressed())){
-	// 	var t = game.add.tween(hero).to({x:12400,y:h-600},100);
-	// 	t.start();
-	// 	t.onComplete.add(function(){ game.add.tween(hero).to({x:12400,y:h-300},200).start();});
-
-	// }
-
 
 
 	if(hero.x > 4500){
 		showPlantsFromBottom();
 		moveBugLeft();
 	}
-	// if(hero.x > 15350){
-		
-	// 	game.add.tween(shakti).to({x:base5+600,y:h-610},100).start();
-	// 	game.add.tween(shakti_cup).to({x:base5+500,y:h-475},100).start();
-	// 	//console.log("Shakti cup is here");
 
-	// }
 	if(hero.x > base5+800 && hero.x <=base5+900 && !cupTweenDone){
 	
 	cupTweenDone =true;
@@ -1026,18 +832,6 @@ function update(){
 		t.onComplete.add(function(){game.add.text(platformLength-185,h-370,"Thanks for\n Visiting !",style_white);},this);
 	
 	}
-	// if(hero.x > 18000){
-		
-	// 	var t =game.add.tween(shakti2).to({y:h-450},100);
-	// 	t.start();
-	// 	t.onComplete.add(bounceFootball,this);
-	// }
-
-	// if(hero.x > base7+500){
-	// 	game.add.tween(cloud_moving2).to({x:base7,alpha:0},5000).start();
-	// 	game.add.tween(cloud_moving1).to({x:platformLength,alpha:0},5000).start();
-
-	// }
 
 	
 	if(hero.x>5800 && hero.x <=6000 && hero.y>= h-245-hero.height-50 && direction!='left'){
@@ -1045,20 +839,9 @@ function update(){
 		
 
 	}
-		//bug_tween = game.add.tween(bug).to({x:6550},3000,Phaser.Easing.Linear.None)
-		//bug_tween.start();
-		/*
-		
-    var tween = game.add.tween(hero).to( { x: [ 6000, 6200, 6400, 6600 ], y: [ h-250, h-400, h-400, h-250 ] },2000, "Sine.easeInOut", true, -1, false);
-    tween.interpolation(Phaser.Math.linearInterpolation);
-	*/
 	
 
 	if((bug.x - hero.x)<=100){
-		//game.add.tween(bug).to({x:bug.x},3000,Phaser.Easing.Linear.None).start();
-		//bug_tween.pause();
-		//bug.scale.setTo(1,0.2);
-		//console.log(bug.x - hero.x);
 		bug.body.velocity.x = 0;
 
 
@@ -1079,24 +862,7 @@ function update(){
 		hero.y = h - 550;
 
 	}
-	//Throw into ocean
-	// if(hero.x >=8600&&hero.x<=8800&&hero.y==h-300&&(forwardButtonPressed())&&direction=="right"){
-	// 	var t = game.add.tween(hero).to({x:8700,y:h+300},300).start();
-	// 	birds.alpha = 0;
-	// 	hero.alpha = 0.6;
-	// 		// bubble.scale.setTo(0.5,0.5);
-			// bubble.anchor.setTo(0.5, 0.5);
-			// animateBubble();
-		
-
-		//t.onComplete.add(function(){
-			//var t = game.add.tween(bubble).to({x:9100,y:h-50},300).start()},this);
-			
-			//bubble.anchor.setTo(bubble.width/2,bubble.height/2);
-			//t.onComplete.add(animateBubble,this);
-			
-	// }
-
+	
 	if(hero.x > 9250 && hero.x <9300 && hero.y > h &&direction!='left'){
 		var t =game.add.tween(hero).to({x:9350,y:h-300},1000).start();
 		t.onComplete.add(function(){ hero.alpha=1; birds.alpha=1;game.camera.y -=150;})
@@ -1139,11 +905,6 @@ function moveHillsUp(){
 	hills3Tween.to({y:h-400},2500);
 	hills3Tween.start();
 
-
-	// var ct = game.add.tween(aieee_cup);
-	// ct.to({y:h-410},5000,Phaser.Easing.Bounce.Out, true);
-	// ct.start();
-
 }
 
 function showPlantsFromBottom(){
@@ -1169,14 +930,6 @@ function showPlantsFromBottom(){
 
 }
 
-
-function bounceFootball(){
-
-
-}
-function bouncePrateek(){
-// var bounceTween = 
-}
 
 function fadeText(){
 
@@ -1209,75 +962,9 @@ function fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
 
 	text.setText("File Complete: " + progress + "% - " + totalLoaded + " out of " + totalFiles);
 
-/*	var newImage = game.add.image(x, y, cacheKey);
-
-	newImage.scale.set(0.3);
-
-	x += newImage.width + 20;
-
-	if (x > 700)
-	{
-		x = 32;
-		y += 332;
-	}*/
-
-	//text.setText("Loading...");
-
-}
-
-function loadComplete() {
-
-	text.setText("Load Complete");
-
-}
-
-function openGithub(){
- var win = window.open(github_url);
- win.focus();
-}
-function openCodechef(){
- var win = window.open(codechef_url);
- win.focus();
-}
-function openLinkedIn(){
- var win = window.open(linkedin_url);
- win.focus();
-}
-
-function openFacebook(){
- var win = window.open(facebook_url);
- win.focus();
-}
-
-function openHackerearth(){
- var win = window.open(hackerearth_url);
- win.focus();
 }
 
 
-function openWebsite(){
- var win = window.open(website_url);
- win.focus();
-}
-
-function openResume(){
- var win = window.open(resume_url);
- win.focus();
-}
-
-function openGmail(){
- var win = window.open("mailto:prateeknarang111@gmail.com");
- win.focus();
-}
-
-function openSpoj(){
- var win = window.open(spoj_url);
- win.focus();
-}
-function openPublication(){
- var win = window.open("http://www.ijcaonline.org/research/volume127/number2/bindal-2015-ijca-906322.pdf");
- win.focus();
-}
 
 
 
