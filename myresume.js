@@ -1,8 +1,8 @@
 var w = window.innerWidth;
 var h = window.innerHeight;
-var bgColor = "#2ECCFA"; 
+var bgColor = "#fbeec1"; 
 var game = new Phaser.Game(w,h,Phaser.CANVAS,'canvas',{preload:preload,create:create,update:update,render:render});
-var orange = "#FF7519";
+var orange = "#fbeec1";
 var debug=false;
 var hero;
 var cursors;
@@ -13,8 +13,8 @@ var bulletTime = 0;
 var ctext,pythontext,javatext,jstext;
 var birds;
 var bubble;
-var style_white = { font:"24px Roboto", fill:"#FFF",align:"center" };
-var style_roboto = { font:"24px Roboto", fill:"#FFF",align:"center" }
+var style_white = { font:"24px Roboto", fill:"#113388",align:"center" };
+var style_roboto = { font:"24px Roboto", fill:"#113388",align:"center" }
 var shakti;
 var shakti_cup;
 var shakti2;
@@ -38,7 +38,7 @@ var cloud_moving2;
 var base5 = 15100;
 var base6 = 17500+1400;
 var base7 =19500+1400;
-var platformLength = base7+2000;
+var platformLength = base7 - 1000;
 var cupTweenDone=false;
 var cupTweenSecondDone=false;
 var delay =0;
@@ -50,35 +50,44 @@ var explosion_count = 0;
 var max_explosion_count=5;
 function preload(){
 	 
-	text = game.add.text(w/2, h/2, "Loading...",{ font:"80px Roboto",fill: '#ffffff' });
+	text = game.add.text(w/2, h/2, "Loading...",{ font:"80px Roboto",fill: '#fbeec1' });
 	text.anchor.setTo(0.5,0.5);
 	game.load.image('download','assets/download2.png');
 	game.load.image('publication','assets/publication.png');
-	game.load.image('ground','assets/ground.png');
+	game.load.image('ground','assets/grassMid.png');
 	game.load.image('back','assets/back64.png');
-	game.load.image('grass','assets/grass.png');
-	game.load.image('brick','assets/brick.png');
+	game.load.image('grass','assets/grassCenter.png');
+	game.load.image('brick','assets/brickWall.png');
 	game.load.image('tree1','assets/tree-bright-e.png');
 	game.load.image('plant1','assets/plant-lotus.png');
 	game.load.image('cloud','assets/cloud.png');
 	game.load.image('birds','assets/birds.png');
-	game.load.image('school','assets/school.png');
+	game.load.image('school','assets/graph.png');
 	game.load.image('mainbanner','assets/interactive-resume.png');
+	game.load.image('hoarding','assets/hoarding.png')
 	game.load.image('building','assets/building.png');
-	game.load.image('hometown','assets/hometown.png');
+	game.load.image('hometown','assets/treasure.png');
 	game.load.image('hill','assets/mountain.png');
 	game.load.image('treeS','assets/tree-dark-d.png');
-	game.load.atlasJSONHash('prateek','assets/hero_running.png','assets/hero_running.json');
+	game.load.atlasJSONHash('prateek','assets/p2_walk.png','assets/p2_walk.json');
 	game.load.atlasJSONHash('waterAtlas','assets/water_corrected.png','assets/water_running.json');
 	game.load.atlasJSONHash('waterAtlas2','assets/water_orange.png','assets/water_running.json');
 	game.load.image('dtu','assets/dtu.png');
 	game.load.image('level','assets/sign.png');
 	game.load.image('cocotree','assets/coco.png');
 	game.load.image('python','assets/python_white.png');
-	game.load.image('css','assets/cssn.png');
+	game.load.image('tata','assets/tata.png');
+	game.load.image('jtb','assets/jtb.png');
+	game.load.image('css','assets/amazon.png');
 	game.load.image('js','assets/js.png');
 	game.load.image('html','assets/html5.png');
-	game.load.image('night','assets/night.jpg');
+	game.load.image('night','assets/day.webp');
+	game.load.image('bush','assets/bush.png');
+	game.load.image('plant','assets/plant.png');
+	game.load.image('rock','assets/rock.png');
+	game.load.image('infosys','assets/infosys.png');
+	game.load.image('zoom','assets/zoom.png')
+
 	//game.load.image('jquery','assets/jquery_white.png');
 	game.load.image('developer','assets/fullstackS.png');
 	//game.load.image('phaser','assets/phaserLogo.png');
@@ -86,13 +95,13 @@ function preload(){
 
 	game.load.image('frog','assets/frog.png');
 	game.load.image('sandiskPd','assets/sandiskPd.png');
-	game.load.image('sandiskLogo','assets/sandiskLogo.png');
-	game.load.image('instaLogo','assets/instalabs.png');
-	game.load.image('hackerearthLogo','assets/hackerearthlogo.png');
-	game.load.image('campk12Logo','assets/campk12.png');
+	game.load.image('sandiskLogo','assets/visa.png');
+	game.load.image('instaLogo','assets/dell.png');
+	game.load.image('hackerearthLogo','assets/microsoft.png');
+	game.load.image('campk12Logo','assets/google.png');
 	game.load.image('cbLogo','assets/cb.png');
 	game.load.image('corel','assets/corel.png');
-	game.load.image('psbubble','assets/psbubble.png');
+	// game.load.image('psbubble','assets/socialtables.png');
 	game.load.image('games','assets/games.png');
 	game.load.image('gamershq','assets/gamershq.png');
 	//game.load.image('photoshop','assets/pslogo.png');
@@ -118,11 +127,15 @@ function preload(){
 	game.load.image('linkedin','assets/linkedin.png');
 	game.load.image('ladder','assets/ladder.png');
 	game.load.image('yoga','assets/yoga.png');
+	game.load.image('fly','assets/fly.png');
 	game.load.image('swach_bharat','assets/swach_bharat.png');
 	game.load.image('github','assets/github.png');	
 	game.load.image('codechef','assets/codechef.png');
 	game.load.image('spoj','assets/spojlogo.png');
 	game.load.image('algae','assets/algae-b.png');
+	game.load.image('cloud1', 'assets/cloud1.png');
+	game.load.image('cloud2', 'assets/cloud2.png');
+	game.load.image('cloud3', 'assets/cloud3.png');
 	game.load.image('blogLogo','assets/icon_small.png');
 	game.load.image('bug','assets/bug.png');
 	game.load.image('flag','assets/flag.png');
@@ -156,21 +169,22 @@ function create(){
 	//Add Bullets.
 		
 	//Add Clouds
-	for(var i=0;i<20000;i+=1000){
-		if(i>=6800 && i<=8100){
-		game.add.sprite(i,h-680,'cloud');
-		game.add.sprite(i+400,h-630+50,'cloud');
-		}
-		else{
-		game.add.sprite(i,h-580,'cloud');
-		game.add.sprite(i+400,h-630,'cloud');
+	// for(var i=0;i<20000;i+=1000){
+	// 	if(i>=6800 && i<=8100){
+	// 	game.add.sprite(i,h-680,'cloud');
+	// 	game.add.sprite(i+400,h-630+50,'cloud');
+	// 	}
+	// 	else{
+	// 	game.add.sprite(i,h-580,'cloud');
+	// 	game.add.sprite(i+400,h-630,'cloud');
 		
 
-		}
-	}
+	// 	}
+	// }
 
 	//Add night mode
 	night = game.add.tileSprite(0,0,platformLength*2,h,'night');
+	night.scale.setTo(1,1.5)
 	night.alpha = 1;
 	//Add mountains
 
@@ -183,6 +197,23 @@ function create(){
     bullets.setAll('anchor.y', 1);
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
+
+	let x = 10;
+
+	for(let i = 0; i < 100; i++){
+		plant = game.add.sprite(x,h-170,'plant');
+		x+=Math.random()*1000;
+	}
+	x = 10;
+	for(let i = 0; i < 100; i++){
+		rock = game.add.sprite(x,h-170,'rock');
+		x+=Math.random()*1000;
+	}
+	x = 10;
+	for(let i = 0; i < 100; i++){
+		bush = game.add.sprite(x,h-170,'bush');
+		x+=Math.random()*1000;
+	}
    	
     explosions = game.add.group();
 
@@ -199,8 +230,8 @@ function create(){
 	game.world.setBounds(0, 0,platformLength,h+800);
 
 	//Add corel parachute
-	corel = game.add.sprite(9000,h-600,'corel');
-	game.add.tween(corel).to( { y:h-450}, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 2000, true);
+	// corel = game.add.sprite(9000,h-600,'corel');
+	// game.add.tween(corel).to( { y:h-450}, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 2000, true);
 	//game.input.onTap.add(moveforward,this);
 
 
@@ -225,28 +256,28 @@ function create(){
 	ct3  = game.add.sprite(5400,h,'cocotree');
 	ct4  = game.add.sprite(5600,h,'cocotree');
 
-	var style_white2 = { font:"30px Roboto",fill:"#fff"};
+	var style_white2 = { font:"30px Roboto",fill:"#fbeec1"};
 	var style_lang = { font:"30px Roboto" ,fill:"#fff"};
 	//var style_lang = { font:"30px monospace" ,fill:"#fff"};
 
-	javatext = game.add.text(5050,h-320-50,'Python\n 88.54%',style_roboto);
-	pythontext=	game.add.text(5250,h-430-60,'Java\n 94.78%',style_white2);
-	jstext = game.add.text(5430,h-450-50,'JavaScript\n 98.48%',style_white2);
-	ctext = game.add.text(5660,h-460-50,'C/C++ \n 98.42%',style_white2);
+	javatext = game.add.text(5050,h-320-50,'USAA \n $3M TCV',style_roboto);
+	pythontext=	game.add.text(5250,h-430-60,'International Baccalaureate Organization\n (Renewal), $1.2M TCV',style_white2);
+	jstext = game.add.text(5430,h-450-50,'Federal Reserve System (Cross Sell/Upsell),\n $384K TCV',style_white2);
+	ctext = game.add.text(5660,h-460-50,'HPE, VAH, NBB,\n $347K TCV',style_white2);
 
 	
 	javatext.alpha = 0.2;
 	pythontext.alpha = 0.2;
 	jstext.alpha = 0.2;
 	ctext.alpha = 0.2;
-	game.add.text(5200,h-140,'LANGUAGE  ACTIVITY',style_roboto);
+	// game.add.text(5200,h-140,'LANGUAGE  ACTIVITY',style_roboto);
 
 	//Add BrickWall
 	/* This is an older brick wall  
 	game.add.tileSprite(6500,h-450,2000,400,'brick');
 	*/
 	//Add Coin
-	var mustard_style = { font: "80px Roboto", fill: "#FFF", align: "center" };
+	var mustard_style = { font: "80px Roboto", fill: "#fbeec1", align: "center" };
 	codetext = game.add.text(6550,h-550,'C    D E =>',mustard_style);
 	var moving_coin = game.add.sprite(6610,h-550,'coin_moving');
 	moving_coin.scale.setTo(2,2);
@@ -303,25 +334,28 @@ function create(){
 	game.add.sprite(base6+380,h-300,'treeS').scale.setTo(0.8,0.8);
 
 
-	var style = { font: "16px monospace", fill: "#fff", align: "center" };
-	game.add.text(2930,h-250,"Class 10th \n 10.0/10.0 CGPA \n School Topper", style);
-	game.add.text(3330,h-280,"Class 12th \n 95.2 % marks \n CBSE Board ", style);
-	game.add.text(3700,h-320,"JEE Mains \n All India Rank 489 \n 13th in Punjab \n\n 1st in DTU \n(University Rank Opener)", style);
+	var style = { font: "16px monospace", fill: "#fbeec1", align: "center" };
+	game.add.text(2930,h-250,"2012 \n CrowdTorch \n CrowdCompass", style);
+	game.add.text(3330,h-280,"2018 \n Quickmobile \n Kapow \n Social Tables ", style);
+	game.add.text(3745,h-320,"2019 \n Wedding Spot \n Double Dutch \n", style);
 	//Add Ground and Grass
-	var ground = game.add.tileSprite(0,h-100,platformLength*2,2000,'ground');
-	ground.scale.setTo(0.5,0.5);
+	// var ground = game.add.tileSprite(0,h-100,platformLength*2,2000,'ground');
+	
 
-	var grass = game.add.tileSprite(0,h-100,platformLength*2,50,'grass');
+	var ground = game.add.tileSprite(0, h-100, platformLength*2, 50, 'ground');
+	var grass = game.add.tileSprite(0, h-75, platformLength*2, 2000, 'grass');
+	ground.scale.setTo(0.5,0.5);
+	// var grass = game.add.tileSprite(0,h-100,platformLength*2,50,'grass');
 	grass.scale.setTo(0.5,0.5);
 	
 
-	game.add.text(5200,h-70,'*Percentiles as calculated by HackerEarth',{font:"20px monospace",fill:"#fff"});
+	// game.add.text(5200,h-70,'*Percentiles as calculated by HackerEarth',{font:"20px monospace",fill:"#fff"});
 
 
-	var water = game.add.tileSprite(8700,h-100,800,600,'waterAtlas');
-	game.add.sprite(8800,h+120,'algae').scale.setTo(1.5,1.5);
-	game.add.sprite(9200,h+250,'algae');
-	createBubbles();
+	// var water = game.add.tileSprite(8700,h-100,800,600,'waterAtlas');
+	// game.add.sprite(8800,h+120,'algae').scale.setTo(1.5,1.5);
+	// game.add.sprite(9200,h+250,'algae');
+	// createBubbles();
 	//game.add.tileSprite(8700,h+600-136,133*6,136,'photoshop');
 
 	var brick2 = game.add.sprite(12750-70,h-100-36,'brick');
@@ -334,27 +368,30 @@ function create(){
 	//game.add.sprite(12650,h-400,'treeS').alpha=0.8;
 	game.add.sprite(12850,h-300,'treeS').scale.setTo(0.75,0.75);
 
-	var water2 = game.add.tileSprite(12750,h-100-36+10,700,320,'waterAtlas2');
-	water2.scale.setTo(0.5,0.5);
-	//var water = game.add.sprite(100,300,'waterAtlas');
-	water.animations.add('run');
-	water.animations.play('run',2,true);
+	// var water2 = game.add.tileSprite(12750,h-100-36+10,700,320,'waterAtlas2');
+	// water2.scale.setTo(0.5,0.5);
+	// //var water = game.add.sprite(100,300,'waterAtlas');
+	// water.animations.add('run');
+	// water.animations.play('run',2,true);
 	
-	water2.animations.add('run');
-	water2.animations.play('run',2,true);
+	// water2.animations.add('run');
+	// water2.animations.play('run',2,true);
 	
 	
 
 
 	//Add trees
 
-	tree1 = game.add.sprite(130,h-100-0.75*430,'tree1');
-	tree1.scale.setTo(.75,.75);
+	// tree1 = game.add.sprite(130,h-100-0.75*430,'tree1');
+	// tree1.scale.setTo(.75,.75);
 	//tree1.alpha = 0.5;	
 	//Add Main Banner
-	var building = game.add.sprite(500,h-600,'building');
-	building.scale.setTo(0.75,0.75);
-	var banner = game.add.sprite(200,h-200-235,'mainbanner');
+	// var building = game.add.sprite(500,h-600,'building');
+	// building.scale.setTo(0.75,0.75);
+	hoarding = game.add.sprite(130,h-590,'hoarding')
+	hoarding.scale.setTo(2.5,2.5);
+	var banner = game.add.sprite(265,h-470,'mainbanner');
+	banner.scale.setTo(0.45,0.45);
 
 	//Add birds
 	birds = game.add.sprite(50,50,'birds');
@@ -364,12 +401,12 @@ function create(){
 	
 	//Signboards
 	game.add.sprite(1300,h-440,'level');
-	game.add.text(1370,h-340,"Level 1");
-	game.add.text(1440,h-260,"About > >");
+	game.add.text(1310,h-340,"Successful 2019");
+	game.add.text(1420,h-260,"Pre Corona");
 
 	game.add.sprite(4700,h-440,'level');
-	game.add.text(4770,h-340,"Level 2");
-	game.add.text(4840,h-260,"Skills > >");
+	game.add.text(4770,h-340,"2020");
+	game.add.text(4840,h-260,"Sales");
 
 	game.add.sprite(9600,h-440,'level');
 	game.add.text(9670,h-340,"Level 3");
@@ -426,72 +463,34 @@ function create(){
 	game.add.sprite(11320,h-300,'cbLogo').scale.setTo(0.6,0.6);
 
 	//Add company texts.
-	var style_ex = {font:"16px Arial",fill:orange,align:"center"};
-	var style_exS = {font:"12px Arial",fill:orange,align:"center"};
-	game.add.text(10080,h-210,"Camp K-12, Delhi \n Sept-Oct 2013 \n Design Instructor",style_exS);
-	game.add.text(10390,h-220,"InstaLabs, Gurgaon \n June-July 2014 \n Android Developer",style_exS);
-	game.add.text(10700,h-230,"HackerEarth\n March-April 2015 \n Problem Setter",style_ex); 
-	game.add.text(11000,h-250,"Bangalore \n June-July 2015 \n Firmware Developer\n Intern",style_ex);
-	game.add.text(11420,h-290,"Coding Blocks,Delhi \n Aug'15-Nov'15 \n C++ Course Instructor",style_ex);
+	// var style_ex = {font:"16px Arial",fill:orange,align:"center"};
+	// var style_exS = {font:"12px Arial",fill:orange,align:"center"};
+	// game.add.text(10080,h-210,"Camp K-12, Delhi \n Sept-Oct 2013 \n Design Instructor",style_exS);
+	// game.add.text(10390,h-220,"InstaLabs, Gurgaon \n June-July 2014 \n Android Developer",style_exS);
+	// game.add.text(10700,h-230,"HackerEarth\n March-April 2015 \n Problem Setter",style_ex); 
+	// game.add.text(11000,h-250,"Bangalore \n June-July 2015 \n Firmware Developer\n Intern",style_ex);
+	// game.add.text(11420,h-290,"Coding Blocks,Delhi \n Aug'15-Nov'15 \n C++ Course Instructor",style_ex);
 
-	var pd = game.add.sprite(10875,h-220,'sandiskPd');
-	pd.scale.setTo(1.2,1.2);
-	pd.angle = -30;
-
-	//Add projects
-	game.add.sprite(12200,h-370,'games');
-	game.add.text(12280,h-430,"Developed Web & Android Games\n 500-1000 Downloads \n Rated 4.8/5.0 on Google Play",style_white);
-
-	game.add.sprite(12760,h-250,'gamershq');
-	game.add.text(12750,h-380,"Developed a gaming portal \n with frontend & backend \n to host and play games",style_white);
-
-
-	game.add.sprite(13400,h-210,'harddrive').scale.setTo(0.6,0.6);
-	game.add.sprite(13400,h-310,'bits');
-	game.add.text(13300,h-430,"Developed meta-data tracking\nstructures for large storage devices \n using Boost C++ and \n Boost Python Libraries.",style_white);
-
-	var pd = game.add.sprite(14050-100,h-160,'sandiskPd');
-	pd.scale.setTo(1.4,1.4);
-	pd.angle = 90;
-	game.add.text(13800-100,h-300,"Wrote Python Scripts to analyze \n fragmentation pattern \n on USB drives.",style_white);
-
-	game.add.sprite(14100,h-370,'hospital');
-	var ambu = game.add.sprite(14200,h-260,'ambulance');
-	ambu.scale.setTo(0.8,0.8);
-	var t = game.add.tween(ambu).to( { x:14400,}, 2000, Phaser.Easing.Back.InOut, true, 0, 2000, true);
-	t.start();
-	game.add.text(14240,h-370,"Worked in a team \nto develop Smart Hospital Management \n System for Kalpvriksh Hospital.",style_white);
-
-
-	game.add.sprite(14800,h-420,'otherprojects');
-	game.add.text(14850,h-450,"Other Projects",style_white);
-	//Add Achivements Section
-	game.add.tileSprite(base5+500,h-100-73*3,139*2,73*3,'brick');
-	shakti = game.add.sprite(base5+1200,-500,'pshaktiman');
-	shakti.scale.setTo(0.6,0.6);
-	shakti_cup = game.add.sprite(base5+500,-500,'cup');
-	shakti_cup.scale.setTo(0.5,0.5);
-	game.add.text(base5+505,h-300,"Best Cartoonist Award \n\n Won several Dist Level\nCartooning,Painting \n & Quiz Competitions. ",style_white);
-	
 	//game.add.tileSprite(15720,h-300,100,300'brick');
 
 	//game.add.sprite(15715,h-410,'best').scale.setTo(0.8,0.8);
 	//Positon style
-	var style_position = { font:"24px monospace",fill:"#fff",align:"center"};
+	var style_position = { font:"24px monospace",fill:"#fbeec1",align:"center"};
 	cup1 = game.add.sprite(base5+820+200,-280,'cup');
-	cup1.scale.setTo(0.6,0.6);
+	cup1.scale.setTo(1.6,1.6);
 	game.add.sprite(base5+1190,h-330,'google');
 	game.add.text(base5+1180,h-250,"Hackathon \n 3rd Runner up\n Developed a Game\n in DART",style_position);
 
 	
 	cup2=game.add.sprite(base5+1400,-340,'cup');
-	cup2.scale.setTo(0.8,0.8);
+	cup2.scale.setTo(1.4,1.4);
 	game.add.sprite(base5+1630,h-390,'csi');
 	game.add.text(base5+1580,h-250,"2nd in Spython \nGame Development\n Challenge",style_position);
 
 	
 
 	cup3=game.add.sprite(base5+1820,-410,'cup');
+	cup3.scale.setTo(1.2,1.2);
 	game.add.sprite(base5+2060,h-410,'codelhi');
 	game.add.text(base5+2080+50,h-310,"Hackathon",style_position);
 
@@ -519,88 +518,70 @@ function create(){
 	cup4=game.add.sprite(base5+2420,-410,'cup');
 
 	cup5=game.add.sprite(base5+3000,h-400,'cup');
-	cup5=game.add.sprite(base5+3200,h-350,'building').scale.setTo(0.5,0.5);
-	
-	game.add.text(base5+3250,h-470,"Winner \nSmart City Hackathon \nat PEC (Nov'15)",{font:"30px Arial",fill:"#fff",align:"center"});
+	cup5.scale.setTo(0.8,0.8);
 
-	game.add.sprite(base5+3670,h-310,'icpc');
-	game.add.text(base5+3650,h-470,"Qualified for \nACM-ICPC \nChennai Regionals 2015\n(Team AIR 62) !",{font:"30px Arial",fill:"#fff",align:"center"});
-
-	//Add other highlights
-	game.add.sprite(base6+600,h-240,'chai');
-	game.add.text(base6+600,h-330,"Host:Chai Pe Charcha \n with NaMO & 'Mere \nSapno Ka Bharat'.",style_white);
-	shakti2 = game.add.sprite(base6+930,-500,'pshaktiman');
-	shakti2.scale.setTo(0.75,0.75);
-	game.add.text(base6+900,h-430,"Sports Lover",style_white);
-	football=game.add.sprite(base6+900,h-200,'football');
-	game.add.tween(football).to( {y:h-300 }, 400, Phaser.Easing.Back.InOut, true, 0, 400, true);
 
 	
 	game.add.sprite(base6+1200-30,h-550,'tree1');
 	game.add.sprite(base6+1250+30,h-400,'treeS');
-	game.add.sprite(base6+1200,h-450,'yoga');
-	game.add.sprite(base6+1600,h-400,'swach_bharat');
-	game.add.text(base6+1240,h-500,"Holds Yoga Session \nin DTU \n every Friday.",style_white);
-	game.add.text(base6+1400+20,h-360,"Took active part in \n Swacch Bharat,Tree Plantation\n Drives in Delhi,Punjab,Karnataka.",style_white);
-
 	
 	//Add Contact Buttons
-	game.add.sprite(base7+600,h-400,'ladder');
+	// game.add.sprite(base7+600,h-400,'ladder');
 	
-	var cloud_blog =game.add.sprite(base7+550,h-700+20,'sun');	
-	cloud_blog.scale.setTo(1.3,1.3);
+	// var cloud_blog =game.add.sprite(base7+550,h-700+20,'sun');	
+	// cloud_blog.scale.setTo(1.3,1.3);
 	
-	game.add.button(base7+620,h-650+20,'blogLogo',openWebsite,this);
-	game.add.text(base7+650,h-550+20,"Blog",{font:"40px Arial" ,fill:"#fff"});
-	cloud_moving1 = game.add.sprite(base7+510,h-650,'cloud');
-	cloud_moving2 = game.add.sprite(base7+510-60,h-650,'cloud');
+	// game.add.button(base7+620,h-650+20,'blogLogo',openWebsite,this);
+	// game.add.text(base7+650,h-550+20,"Blog",{font:"40px Arial" ,fill:"#fff"});
+	// cloud_moving1 = game.add.sprite(base7+510,h-650,'cloud');
+	// cloud_moving2 = game.add.sprite(base7+510-60,h-650,'cloud');
 
-	cloud_moving2.scale.setTo(1.3,1.3);
-	cloud_moving1.scale.setTo(1.2,1.2);
+	// cloud_moving2.scale.setTo(1.3,1.3);
+	// cloud_moving1.scale.setTo(1.2,1.2);
 
 	//game.add.text(20100,h-550,"www.prateeknarang.com",{font:"16px Arial",fill:"#ff0000"});
 
-	game.add.sprite(base7+450,h-550,'cloud').scale.setTo(1.2,1.2);
-	button_github = game.add.button(base7+500,h-490,'github',openGithub, this);
-	button_github.scale.setTo(0.20,0.20);
+	// game.add.sprite(base7+450,h-550,'cloud').scale.setTo(1.2,1.2);
+	// button_github = game.add.button(base7+500,h-490,'github',openGithub, this);
+	// button_github.scale.setTo(0.20,0.20);
 	
-	game.add.sprite(base7+800,h-550,'cloud').alpha=0.8;
-	button_fb = game.add.button(base7+860,h-520,'facebook',openFacebook,this);
+	// game.add.sprite(base7+800,h-550,'cloud').alpha=0.8;
+	// button_fb = game.add.button(base7+860,h-520,'facebook',openFacebook,this);
 	
-	var hackerearth_cloud=game.add.sprite(base7+650+30,h-350+15,'cloud');
-	hackerearth_cloud.scale.setTo(1.1,1.1);
+	// var hackerearth_cloud=game.add.sprite(base7+650+30,h-350+15,'cloud');
+	// hackerearth_cloud.scale.setTo(1.1,1.1);
 
-	button_hackerearth = game.add.button(base7+700+30,h-310+15,'hackerearthLogo',openHackerearth, this);
-	button_hackerearth.scale.setTo(0.5,0.5);
+	// button_hackerearth = game.add.button(base7+700+30,h-310+15,'hackerearthLogo',openHackerearth, this);
+	// button_hackerearth.scale.setTo(0.5,0.5);
 	
-	var gmail_cloud=game.add.sprite(base7+670,h-440,'cloud');
-	gmail_cloud.scale.setTo(1.1,1.1);
-	gmail_cloud.alpha =0.95;
-	button_gmail = game.add.button(base7+720,h-400,'gmail',openGmail, this);
-	button_gmail.scale.setTo(0.8,0.8)
+	// var gmail_cloud=game.add.sprite(base7+670,h-440,'cloud');
+	// gmail_cloud.scale.setTo(1.1,1.1);
+	// gmail_cloud.alpha =0.95;
+	// button_gmail = game.add.button(base7+720,h-400,'gmail',openGmail, this);
+	// button_gmail.scale.setTo(0.8,0.8)
 	
 	
 
 	
-	var cloud_codechef=game.add.sprite(base7+400,h-400,'cloud');
-	cloud_codechef.scale.setTo(1.4,1.4);
-	cloud_codechef.alpha=0.8;
-	button_codechef = game.add.button(base7+430,h-330,'codechef',openCodechef, this).scale.setTo(0.6,0.6);
+	// var cloud_codechef=game.add.sprite(base7+400,h-400,'cloud');
+	// cloud_codechef.scale.setTo(1.4,1.4);
+	// cloud_codechef.alpha=0.8;
+	// button_codechef = game.add.button(base7+430,h-330,'codechef',openCodechef, this).scale.setTo(0.6,0.6);
 	
-	//game.add.sprite(20150+200,h-350,'spoj').scale.setTo(0.25,0.25);
-	game.add.sprite(base7+850,h-430,'cloud').scale.setTo(1.3,1.3);
-	button_spoj = game.add.button(base7+890,h-350,'spoj',openSpoj, this);
+	// //game.add.sprite(20150+200,h-350,'spoj').scale.setTo(0.25,0.25);
+	// game.add.sprite(base7+850,h-430,'cloud').scale.setTo(1.3,1.3);
+	// button_spoj = game.add.button(base7+890,h-350,'spoj',openSpoj, this);
 
 
-	var linkedin_cloud = game.add.sprite(base7+1050-100,h-530,'cloud')
-	linkedin_cloud.scale.setTo(1.2,1.2);
-	linkedin_cloud.alpha =0.9;
-	button_linkedin = game.add.button(base7+990,h-450,'linkedin',openLinkedIn, this);
-	button_linkedin.scale.setTo(0.8,0.8);
+	// var linkedin_cloud = game.add.sprite(base7+1050-100,h-530,'cloud')
+	// linkedin_cloud.scale.setTo(1.2,1.2);
+	// linkedin_cloud.alpha =0.9;
+	// button_linkedin = game.add.button(base7+990,h-450,'linkedin',openLinkedIn, this);
+	// button_linkedin.scale.setTo(0.8,0.8);
 	
-	game.add.text(base7+720,h-120,"Click /Tap the Clouds to open Profiles and Publications.",style_white);
+	// game.add.text(base7+720,h-120,"Click /Tap the Clouds to open Profiles and Publications.",style_white);
 	
-	game.add.button(base7+1260,h-450+20,'publication',openPublication,this);
+	// game.add.button(base7+1260,h-450+20,'publication',openPublication,this);
 
 	//scale.setTo(0.15,0.15);
 
@@ -612,90 +593,49 @@ function create(){
 	button_hackerearth = game.add.button(20000,h-600,'hackerearthLogo',openHackerearth, this);
 	*/
 	//Add hometown
-	var hometown = game.add.sprite(1600,h-440,'hometown');
+	var hometown = game.add.sprite(1600,h-200,'hometown');
+	hometown.scale.setTo(0.2,0.2)
 
 	//Add fullstack
-	game.add.sprite(5900,h-360,'developer');
+	// game.add.sprite(5900,h-360,'developer');
 
 	//Add College building
-	game.add.sprite(4300,h-480,'building').scale.setTo(0.75,0.75);
-	aieee_cup=game.add.sprite(3500,-500,'cup');
-	game.add.text(4300,h-120,"  Scored 80% marks in university.",style_roboto);
+	// game.add.sprite(4300,h-480,'building').scale.setTo(0.75,0.75);
+	// aieee_cup=game.add.sprite(3500,-500,'cup');
+	// game.add.text(4300,h-120,"  Scored 80% marks in university.",style_roboto);
 	
 	//Add bubble
 	
-	bubble = game.add.sprite(9100,h+450,'psbubble');
-	game.add.text(8900,h+500,"Designing Skills - Photoshop,CorelDraw",style_roboto);
+	// bubble = game.add.sprite(9100,h+450,'psbubble');
+	// game.add.text(8900,h+500,"Designing Skills - Photoshop,CorelDraw",style_roboto);
 	
-	bubble.scale.setTo(0.5,0.5);
-	bubble.alpha =0.8;
+	// bubble.scale.setTo(0.5,0.5);
+	// bubble.alpha =0.8;
 
-	inst_text = game.add.text(290,h-50,"Use  Arrow Keys  OR << Screen Buttons >> ",{font:"30px Arial",fill:"#fff"});
+	inst_text = game.add.text(290,h-50,"Use  Arrow Keys  OR << Screen Buttons >> ",{font:"30px Arial",fill:"#fbeec1"});
 	//Add hero 
-	hero = game.add.sprite(100,-200,'prateek');
+	hero = game.add.sprite(100,-100,'prateek');
 	hero.animations.add('run');
+	// hero.scale.setTo(1.2,1.2);
 
-
-
-//----------------------------------------Sea Creatures
-    //Add under water animals
-    octopus = game.add.sprite(9200, h+100, 'seacreatures');
-    octopus.animations.add('swim', Phaser.Animation.generateFrameNames('octopus', 0, 24, '', 4), 30, true);
-    octopus.animations.play('swim');
-  //  game.add.tween(octopus).to( { y:h-100},2000, Phaser.Easing.Back.InOut, true, 0, 2000, true);
-    game.add.tween(octopus).to({ y: h-100 }, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
-
-    octopus2 = game.add.sprite(13100, h-200, 'seacreatures');
-    octopus2.animations.add('swim', Phaser.Animation.generateFrameNames('octopus', 0, 24, '', 4), 30, true);
-    octopus2.animations.play('swim');
-
-    crab = game.add.sprite(8750,h+420, 'seacreatures');
-    crab.animations.add('swim', Phaser.Animation.generateFrameNames('crab1', 0, 25, '', 4), 30, true);
-    crab.animations.play('swim');
-
-    crab2 = game.add.sprite(12650,h-180, 'seacreatures');
-    crab2.scale.setTo(0.7,0.7);
-    crab2.animations.add('swim', Phaser.Animation.generateFrameNames('crab1', 0, 25, '', 4), 30, true);
-    crab2.animations.play('swim');
-
-    seahorse = game.add.sprite(9300, h+200, 'seacreatures');
-    seahorse.animations.add('swim', Phaser.Animation.generateFrameNames('seahorse', 0, 5, '', 4), 30, true);
-    seahorse.animations.play('swim');
-
-
-    purpleFish = game.add.sprite(12950,h-80, 'seacreatures');
-    purpleFish.animations.add('swim', Phaser.Animation.generateFrameNames('purpleFish', 0, 20, '', 4), 30, true);
-    purpleFish.animations.play('swim');
-    game.add.tween(purpleFish).to({ x:12750}, 7500, Phaser.Easing.Quadratic.InOut, true, 0, 1000, false);
-
-
-    stingray = game.add.sprite(8900, h+90, 'seacreatures');
-
-    stingray.animations.add('swim', Phaser.Animation.generateFrameNames('stingray', 0, 23, '', 4), 30, true);
-    stingray.animations.play('swim');
-   /* 	
-    jellyfish = game.add.sprite(9100, h+20, 'seacreatures');
-    jellyfish.animations.add('swim', Phaser.Animation.generateFrameNames('blueJellyfish', 0, 32, '', 4), 30, true);
-    jellyfish.animations.play('swim');
-*/
-    greenJellyfish = game.add.sprite(8800, h-150, 'seacreatures');
-    greenJellyfish.animations.add('swim', Phaser.Animation.generateFrameNames('greenJellyfish', 0, 39, '', 4), 30, true);
-    greenJellyfish.animations.play('swim');
-    game.add.tween(greenJellyfish).to( { y:h-100},2000, Phaser.Easing.Back.InOut, true, 0, 2000, true);
 
 
 	//Add School
-	var school = game.add.sprite(2200,h-220-200,'school');
+	var school = game.add.sprite(1900,h-250-200,'school');
+	school.scale.setTo(0.8, 0.8);
+
+	var fly = game.add.sprite(1900,h-500,'fly');
+	fly.scale.setTo(0.5, 0.5);
 	//school.scale.setTo(1.2,1.2);
 
-	var clg = game.add.sprite(4000,h-490,'dtu');
-	clg.scale.setTo(1.2,1.2);
+	// var clg = game.add.sprite(4000,h-490,'dtu');
+	// clg.scale.setTo(1.2,1.2);
 
 	
 //	hero tween
 	var entryTween = game.add.tween(hero);
- //	tween = game.add.tween(sprites.cursor).to( { x:100,y: 500 }, 2000, Phaser.Easing.Bounce.Out, true);
-	entryTween.to({x:starting_point,y:h-245-hero.height},2000,Phaser.Easing.Bounce.Out, true);
+ 	// tween = game.add.tween(sprites.cursor).to( { x:100,y: 500 }, 2000, Phaser.Easing.Bounce.Out, true);
+	entryTween.to({x:starting_point,y:h-100-hero.height},2000,Phaser.Easing.Bounce.Out, true);
 	entryTween.start();
 	
 	cursors = game.input.keyboard.createCursorKeys();
@@ -723,9 +663,9 @@ function create(){
 	back_btn.fixedToCamera = true;
 	back_btn.alpha = 1;
 	
-	download_btn = game.add.button(w-150,5,'download',openResume,this);
-	download_btn.fixedToCamera = true;
-	game.add.text(w-120,100,"Download PDF",{font:"10px Roboto",fill:"#000"}).fixedToCamera=true;
+	// download_btn = game.add.button(w-150,5,'download',openResume,this);
+	// download_btn.fixedToCamera = true;
+	// game.add.text(w-120,100,"Download PDF",{font:"10px Roboto",fill:"#fbeec1"}).fixedToCamera=true;
 	night_tween = game.add.tween(night);
 	night_tween.to({ alpha:0}, 10000)
 		//, Phaser.Easing.Quadratic.InOut, true, 0, 5000, true);
@@ -782,7 +722,7 @@ function collisionHandler(bullet,tile){
 
 	}
 	else if(explosion_count==2){
-	var html= game.add.sprite(bv+1*inc,h-500,'html');
+	var html= game.add.sprite(bv+1*inc,h-500,'infosys');
 		html.scale.setTo(0.5,0.5);
 		html.anchor.setTo(0.5,0.5);
 		game.add.tween(html).to({y:h-550},300).start();
@@ -795,7 +735,7 @@ function collisionHandler(bullet,tile){
 
 	}
 	else if(explosion_count==3){
-	var js= game.add.sprite(bv+2*inc,h-500,'js');
+	var js= game.add.sprite(bv+2*inc,h-500,'zoom');
 	js.scale.setTo(0.5,0.5);
 	js.anchor.setTo(0.5,0.5);
 	game.add.tween(js).to({y:h-550},300).start();
@@ -809,7 +749,7 @@ function collisionHandler(bullet,tile){
 	}
 
 	else if(explosion_count==4){
-	var py= game.add.sprite(bv+3*inc,h-500,'python');
+	var py= game.add.sprite(bv+3*inc,h-500,'tata');
 	py.scale.setTo(0.2,0.2);
 	py.anchor.setTo(0.5,0.5);
 	game.add.tween(py).to({y:h-550},300).start();
@@ -830,7 +770,7 @@ function collisionHandler(bullet,tile){
 	game.add.tween(py.scale).to({y:0.6,x:0.6},500).start();
 	*/
 
-	var andro= game.add.sprite(bv+4*inc,h-500,'android');
+	var andro= game.add.sprite(bv+4*inc,h-500,'jtb');
 	andro.scale.setTo(0.2,0.2);
 	andro.anchor.setTo(0.5,0.5);
 	game.add.tween(andro).to({y:h-550},300).start();
@@ -889,23 +829,23 @@ function moveBack(){
 	hero.x -= 80;
 	hero.animations.play('run',15,true);
 }
-function createBubbles(){
-	for (var i = 0; i < 20; i++)
-    {
-        var sprite = game.add.sprite(game.rnd.realInRange(8700,9400), h+400, 'waterBubble');
+// function createBubbles(){
+// 	for (var i = 0; i < 20; i++)
+//     {
+//         var sprite = game.add.sprite(game.rnd.realInRange(8700,9400), h+400, 'waterBubble');
 
-        sprite.scale.set(game.rnd.realInRange(0.1, 0.3));
-        sprite.alpha -=0.1;
+//         sprite.scale.set(game.rnd.realInRange(0.1, 0.3));
+//         sprite.alpha -=0.1;
 
-        var speed = game.rnd.between(4000, 6000);
+//         var speed = game.rnd.between(4000, 6000);
 
-        game.add.tween(sprite).to({ y:h-game.rnd.realInRange(100,250),}, speed, Phaser.Easing.Sinusoidal.InOut, true, delay, 1000, false);
+//         game.add.tween(sprite).to({ y:h-game.rnd.realInRange(100,250),}, speed, Phaser.Easing.Sinusoidal.InOut, true, delay, 1000, false);
 
-        delay += 300;
-    }
+//         delay += 300;
+//     }
 
 
-}
+// }
 
 function mouseWheel(event) {
 		inst_text.setText("");
@@ -990,53 +930,54 @@ function update(){
 		hero.animations.stop('run');
 	}
 	
-	if(hero.x<=0&&direction=="right"){
+	if(hero.x<=0 && direction=="right"){
 		hero.x =0;
 	}
-	if(hero.x <=150&&direction=="left"){
+	if(hero.x <=150 && direction=="left"){
 		hero.x = 150;
 	}
 	
-	if(hero.x<=6450&& hero.x>=6200 &&hero.y == h-650 &&backButtonPressed() ){
-		game.add.tween(hero).to({x:5800,y:h-300},300).start();
+	if(hero.x<=6450 && hero.x>=6200 && hero.y == h-550 && backButtonPressed() ){
+		game.add.tween(hero).to({x:5800,y:h-200},300).start();
 		hero.x=5780;
-		hero.y = h-300;
+		hero.y = h-100;
 		//console.log("This tween");
 	}
-	if(hero.x<8700 && hero.y>h &&(backButtonPressed())){
-		hero.x = 8700;
-		console.log("Yeh valal");
-	}
+
+	// if(hero.x<8700 && hero.y>h &&(backButtonPressed())){
+	// 	hero.x = 8700;
+	// 	console.log("Yeh valal");
+	// }
 	//Throw into ocean right
-	if(direction =="left" &&hero.x >=9250&&hero.x<=9450&&backButtonPressed()){
-		hero.y = h+300;
-		hero.alpha = 0.8;
-		birds.alpha =0;
-	}
+	// if(direction =="left" &&hero.x >=9250&&hero.x<=9450&&backButtonPressed()){
+	// 	hero.y = h+300;
+	// 	hero.alpha = 0.8;
+	// 	birds.alpha =0;
+	// }
 	if(hero.x >base5){
 
 		night_tween.start();
 	}
 
-	if(hero.x > 8750 && hero.x <8900 && hero.y > h &&direction!='right'){
-		var t =game.add.tween(hero).to({x:8800,y:h-300},1000).start();
-		t.onComplete.add(function(){ hero.alpha=1; birds.alpha=1;game.camera.y -=150;})
-		//console.log("Nahin Yeh Vaala")
-	}
+	// if(hero.x > 8750 && hero.x <8900 && hero.y > h &&direction!='right'){
+	// 	var t =game.add.tween(hero).to({x:8800,y:h-300},1000).start();
+	// 	t.onComplete.add(function(){ hero.alpha=1; birds.alpha=1;game.camera.y -=150;})
+	// 	//console.log("Nahin Yeh Vaala")
+	// }
 
-	if(hero.x>=12500&&hero.x<=12650&&(forwardButtonPressed())){
-		var t = game.add.tween(hero).to({x:12800,y:h-700},100);
-		t.start();
-		t.onComplete.add(function(){ game.add.tween(hero).to({x:13100,y:h-300},200).start()});
+	// if(hero.x>=12500&&hero.x<=12650&&(forwardButtonPressed())){
+	// 	var t = game.add.tween(hero).to({x:12800,y:h-700},100);
+	// 	t.start();
+	// 	t.onComplete.add(function(){ game.add.tween(hero).to({x:13100,y:h-300},200).start()});
 	
-	}
+	// }
 
-	if(hero.x >=13000&&hero.x<=13100&&(backButtonPressed())){
-		var t = game.add.tween(hero).to({x:12400,y:h-600},100);
-		t.start();
-		t.onComplete.add(function(){ game.add.tween(hero).to({x:12400,y:h-300},200).start();});
+	// if(hero.x >=13000&&hero.x<=13100&&(backButtonPressed())){
+	// 	var t = game.add.tween(hero).to({x:12400,y:h-600},100);
+	// 	t.start();
+	// 	t.onComplete.add(function(){ game.add.tween(hero).to({x:12400,y:h-300},200).start();});
 
-	}
+	// }
 
 
 
@@ -1044,13 +985,13 @@ function update(){
 		showPlantsFromBottom();
 		moveBugLeft();
 	}
-	if(hero.x > 15350){
+	// if(hero.x > 15350){
 		
-		game.add.tween(shakti).to({x:base5+600,y:h-610},100).start();
-		game.add.tween(shakti_cup).to({x:base5+500,y:h-475},100).start();
-		//console.log("Shakti cup is here");
+	// 	game.add.tween(shakti).to({x:base5+600,y:h-610},100).start();
+	// 	game.add.tween(shakti_cup).to({x:base5+500,y:h-475},100).start();
+	// 	//console.log("Shakti cup is here");
 
-	}
+	// }
 	if(hero.x > base5+800 && hero.x <=base5+900 && !cupTweenDone){
 	
 	cupTweenDone =true;
@@ -1085,22 +1026,22 @@ function update(){
 		t.onComplete.add(function(){game.add.text(platformLength-185,h-370,"Thanks for\n Visiting !",style_white);},this);
 	
 	}
-	if(hero.x > 18000){
+	// if(hero.x > 18000){
 		
-		var t =game.add.tween(shakti2).to({y:h-450},100);
-		t.start();
-		t.onComplete.add(bounceFootball,this);
-	}
+	// 	var t =game.add.tween(shakti2).to({y:h-450},100);
+	// 	t.start();
+	// 	t.onComplete.add(bounceFootball,this);
+	// }
 
-	if(hero.x > base7+500){
-		game.add.tween(cloud_moving2).to({x:base7,alpha:0},5000).start();
-		game.add.tween(cloud_moving1).to({x:platformLength,alpha:0},5000).start();
+	// if(hero.x > base7+500){
+	// 	game.add.tween(cloud_moving2).to({x:base7,alpha:0},5000).start();
+	// 	game.add.tween(cloud_moving1).to({x:platformLength,alpha:0},5000).start();
 
-	}
+	// }
 
 	
 	if(hero.x>5800 && hero.x <=6000 && hero.y>= h-245-hero.height-50 && direction!='left'){
-		game.add.tween(hero).to({x:6500,y:h-650},100).start();
+		game.add.tween(hero).to({x:6500,y:h-550},100).start();
 		
 
 	}
@@ -1125,27 +1066,27 @@ function update(){
 		bug.body.y = h - 110;
 		
 		if(bug_killed==false){
-		game.add.text(bug.x,h-200,"Oouch..!",style_roboto);
+		game.add.text(bug.x,h-200,"RIP Bugs.!",style_roboto);
 		bug_killed =true;
 		}
 	}
 	//Throw onto Ground
 	if(hero.x > 6830 && hero.x <7000 && direction=="right"){
-		hero.y = h - 300;  
+		hero.y = h - 200;  
 
 	}
 	if(hero.x <=7000&&hero.x>6900 && direction=="left" ){
-		hero.y = h - 650;
+		hero.y = h - 550;
 
 	}
 	//Throw into ocean
-	if(hero.x >=8600&&hero.x<=8800&&hero.y==h-300&&(forwardButtonPressed())&&direction=="right"){
-		var t = game.add.tween(hero).to({x:8700,y:h+300},300).start();
-		birds.alpha = 0;
-		hero.alpha = 0.6;
-			bubble.scale.setTo(0.5,0.5);
-			bubble.anchor.setTo(0.5, 0.5);
-			animateBubble();
+	// if(hero.x >=8600&&hero.x<=8800&&hero.y==h-300&&(forwardButtonPressed())&&direction=="right"){
+	// 	var t = game.add.tween(hero).to({x:8700,y:h+300},300).start();
+	// 	birds.alpha = 0;
+	// 	hero.alpha = 0.6;
+	// 		// bubble.scale.setTo(0.5,0.5);
+			// bubble.anchor.setTo(0.5, 0.5);
+			// animateBubble();
 		
 
 		//t.onComplete.add(function(){
@@ -1154,7 +1095,7 @@ function update(){
 			//bubble.anchor.setTo(bubble.width/2,bubble.height/2);
 			//t.onComplete.add(animateBubble,this);
 			
-	}
+	// }
 
 	if(hero.x > 9250 && hero.x <9300 && hero.y > h &&direction!='left'){
 		var t =game.add.tween(hero).to({x:9350,y:h-300},1000).start();
@@ -1165,11 +1106,10 @@ function update(){
 	if(hero.x >=7100 && hero.x <=8200){
 		fireBullet();
 	}
-	
-
-
 
 }
+
+
 function animateBubble(){
 
 				bubble.scale.setTo(0.75,0.75);
@@ -1200,9 +1140,9 @@ function moveHillsUp(){
 	hills3Tween.start();
 
 
-	var ct = game.add.tween(aieee_cup);
-	ct.to({y:h-410},5000,Phaser.Easing.Bounce.Out, true);
-	ct.start();
+	// var ct = game.add.tween(aieee_cup);
+	// ct.to({y:h-410},5000,Phaser.Easing.Bounce.Out, true);
+	// ct.start();
 
 }
 
